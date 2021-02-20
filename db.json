@@ -4,6 +4,16 @@
       "id": 1,
       "title": "json-server",
       "author": "typicode"
+    },
+    {
+      "title": "test",
+      "author": "luffy",
+      "id": 2
+    },
+    {
+      "title": "cook",
+      "author": "sanji",
+      "id": 3
     }
   ],
   "comments": [

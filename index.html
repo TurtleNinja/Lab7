@@ -159,14 +159,18 @@
           let url = document.getElementById('endpoint').value;
           // query data
           fetch(url, {
-            method: 'post',
+            method: 'POST',
             headers: {
-              'Content-type': "application/json"
+              'Content-Type': "application/json; charset=utf-8"
             },
-            body: `author=${author}&title=${title}`
+            body: JSON.stringify({
+              "title": title,
+              "author": author
+            })
           })
           .then(
             function(response) {
+              console.log(response);
               // throw error if response is invalid
               if (response.status != 200) {
                 document.getElementById('output').innerHTML = `Error: ${response.status}`;
@@ -180,6 +184,11 @@
                   document.getElementById('output').innerHTML = JSON.stringify(data);
                 }
               );
+            }
+          )
+          .catch(
+            function(err) {
+              document.getElementById('output').innerHTML = `Error: ${err}`;
             }
           )
         } // end if 'submit'
