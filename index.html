@@ -84,7 +84,28 @@
       // The main difference from fetchOne() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchAll() {
-        // TODO
+        const endpoint = document.getElementById('endpoint');
+        fetch(endpoint.value)
+        .then(
+          function(response) {
+            // throw error if response is invalid
+            if (response.status != 200) {
+              document.getElementById('output').innerHTML = `Error: ${response.status}`;
+              return;
+            }
+            
+            // extract data from the response
+            response.json()
+            .then(
+              function(data) {
+                document.getElementById('output').innerHTML = JSON.stringify(data);
+              }
+            );
+          }
+        )
+        .catch(function(err) {
+          document.getElementById('output').innerHTML = `Error: ${err}`;
+        });
       }
 
       // This function should fetch one entry from the given endpoint.
@@ -92,15 +113,76 @@
       // The main difference from fetchAll() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchOne() {
-        // TODO
+        // ask for id of the query
+        let id = prompt('Enter record id');
+
+        // query data
+        const endpoint = document.getElementById('endpoint');
+        fetch(`${endpoint.value}/${id}`)
+        .then(
+          function(response) {
+            // throw error if response is invalid
+            if (response.status != 200) {
+              document.getElementById('output').innerHTML = `Error: ${response.status}`;
+              return;
+            }
+            
+            // extract data from the response
+            response.json()
+            .then(
+              function(data) {
+                document.getElementById('output').innerHTML = JSON.stringify(data);
+              }
+            );
+          }
+        )
+        .catch(function(err) {
+          document.getElementById('output').innerHTML = `Error: ${err}`;
+        });
       }
 
       // This function should use fetch to create one entry in the given endpoint.
       // From the 4 CRUD actions, this is the CREATE action, and uses the POST http method.
       // The main difference from updateRecord() will be the URL you send data to; check
       // the writeup to view the URL pattern for create and update
-      function createRecord() {
-        // TODO
+      function createRecord(arg) {
+        
+        if (arg === 'show') {
+          // show the record form
+          const recordForm = document.getElementById('recordForm');
+          recordForm.style.display = 'block';
+        }
+        else if (arg === 'submit') {
+          // extract data from the form
+          let author = document.getElementById('author').value;
+          let title = document.getElementById('title').value;
+          let url = document.getElementById('endpoint').value;
+          // query data
+          fetch(url, {
+            method: 'post',
+            headers: {
+              'Content-type': "application/json"
+            },
+            body: `author=${author}&title=${title}`
+          })
+          .then(
+            function(response) {
+              // throw error if response is invalid
+              if (response.status != 200) {
+                document.getElementById('output').innerHTML = `Error: ${response.status}`;
+                return;
+              }
+              
+              // display data from the response for feedback
+              response.json()
+              .then(
+                function(data) {
+                  document.getElementById('output').innerHTML = JSON.stringify(data);
+                }
+              );
+            }
+          )
+        } // end if 'submit'
       }
 
       // This function should use fetch to update one existing entry in the given endpoint.
