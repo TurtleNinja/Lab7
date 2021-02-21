@@ -259,8 +259,44 @@
       // request; check the writeup to view the URL pattern for get one and delete. THERE IS NO 
       // delete all, only delete one.
       function deleteRecord() {
-        // TODO
+        // hide recordForm
+        document.getElementById('recordForm').style.display = 'none';
+        document.getElementById('recordIDcontainer').style.display = 'none';
+
+        // get the record id
+        let id = prompt('Enter record id');
+
+        // query data
+        const url= document.getElementById('endpoint').value;
+        fetch(`${url}/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          body: JSON.stringify({})
+        })
+        .then(
+          function(response) {
+            // throw error if response is invalid
+            if (response.status != 200) {
+              document.getElementById('output').innerHTML = `Error: ${response.status}`;
+              return;
+            }
+            
+            // extract data (empty object) from the response
+            response.json()
+            .then(
+              function(data) {
+                document.getElementById('output').innerHTML = JSON.stringify(data);
+              }
+            );
+          }
+        )
+        .catch(function(err) {
+          document.getElementById('output').innerHTML = `Error: ${err}`;
+        });
       }
+      
 
       window.addEventListener('DOMContentLoaded', () => {
         // Action Form Event Listener
