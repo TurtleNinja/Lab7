@@ -6,7 +6,7 @@
       "author": "typicode"
     },
     {
-      "title": "test",
+      "title": "captain",
       "author": "luffy",
       "id": 2
     },
@@ -14,6 +14,21 @@
       "title": "cook",
       "author": "sanji",
       "id": 3
+    },
+    {
+      "title": "test (updated)",
+      "author": "turtle",
+      "id": 4
+    },
+    {
+      "title": "navigator",
+      "author": "nami",
+      "id": 5
+    },
+    {
+      "title": "test2",
+      "author": "doobee",
+      "id": 6
     }
   ],
   "comments": [
